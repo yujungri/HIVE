@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AdminMapper">
+	<!-- model과 mapper 맵핑 처리 -->
+	<resultMap id="adminMap" type="org.example.hive.model.Admin">
+		<result property="name" column="name" />
+		<result property="email" column="email" />
+	</resultMap>
+
+	<insert id="signUp" parameterType="org.example.hive.model.Admin">
+		INSERT INTO admin (name, email)
+		VALUES (#{name}, #{email});
+	</insert>
+
+</mapper>
