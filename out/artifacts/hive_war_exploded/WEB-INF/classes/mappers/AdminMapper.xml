@@ -5,13 +5,34 @@
 <mapper namespace="AdminMapper">
 	<!-- model과 mapper 맵핑 처리 -->
 	<resultMap id="adminMap" type="org.example.hive.model.Admin">
-		<result property="name" column="name" />
+		<result property="idx" column="idx" />
+		<result property="password" column="password" />
 		<result property="email" column="email" />
+		<result property="name" column="name" />
+		<result property="contact" column="contact" />
+		<result property="department_cd" column="department_cd" />
+		<result property="department_nm" column="department_nm" />
+		<result property="token" column="token" />
+		<result property="join_at" column="join_at" />
+		<result property="login_at" column="login_at" />
 	</resultMap>
 
-	<insert id="signUp" parameterType="org.example.hive.model.Admin">
-		INSERT INTO admin (name, email)
-		VALUES (#{name}, #{email});
+	<!-- 단일행 조회를 위한 기능 정의 -->
+	<select id="selectItem"
+			parameterType="org.example.hive.model.Admin"
+			resultMap="adminMap">
+		SELECT password, email, name, contact, department_nm FROM admin WHERE idx=#{idx};
+	</select>
+
+	<!-- 데이터 저장 -->
+	<insert id="insertItem"
+			parameterType="org.example.hive.model.Admin"
+			useGeneratedKeys="true"
+			keyProperty="idx">
+		INSERT INTO admin (password, email, name, contact, department_cd, department_nm, token, join_at, login_at)
+		VALUES (#{password}, #{email}, #{name}, #{contact},
+		        #{department_cd}, #{department_nm},
+		        #{token}, now(), now());
 	</insert>
 
 </mapper>

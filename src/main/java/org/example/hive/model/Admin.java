@@ -1,26 +1,20 @@
 package org.example.hive.model;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.Date;
 
 @Data
 public class Admin {
-    private String name;
+    private int idx;
+    private String password;
     private String email;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
+    private String name;
+    private String contact;
+    private String department_cd;
+    private String department_nm;
+    private String token;
+    private Date join_at;
+    private Date login_at;
 }

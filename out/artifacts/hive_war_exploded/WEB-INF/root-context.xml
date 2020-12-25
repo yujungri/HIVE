@@ -7,6 +7,12 @@
        http://www.springframework.org/schema/util
        http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 
+    <!-- Helper 구동에 필요한 환경설정 값 -->
+    <util:properties id="config">
+        <!-- 기본 인코딩 타입 -->
+        <prop key="encType">UTF-8</prop>
+    </util:properties>
+
     <!-- DB연동에 필요한 환경설정 값 -->
     <util:properties id="dbConfig">
         <!-- 데이터베이스 호스트 이름 -->
@@ -18,7 +24,7 @@
         <!-- 데이터베이스 문자셋 -->
         <prop key="dbCharset">utf8</prop>
         <!-- 데이터베이스 계정명 -->
-        <prop key="dbUsername">hive</prop>
+        <prop key="dbUsername">root</prop>
         <!-- 데이터베이스 비밀번호 -->
         <prop key="dbPassword">hive4321!</prop>
         <!-- Mapper 파일들이 위치할 '/src/main/resources' 하위의 경로 -->
@@ -32,6 +38,14 @@
         <property name="username" value="#{dbConfig['dbUsername']}"></property>
         <property name="password" value="#{dbConfig['dbPassword']}"></property>
     </bean>
+
+    <!-- WebHelper 주입 설정 -->
+    <bean id="webHelper" class="org.example.hive.helper.WebHelper">
+        <property name="encType" value="#{config['encType']}" />
+    </bean>
+
+    <!-- RegexHelper 주입 설정 -->
+    <bean id="regexHelper" class="org.example.hive.helper.RegexHelper" />
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"></property>
